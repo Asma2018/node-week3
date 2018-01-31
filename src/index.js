@@ -36,6 +36,37 @@ app.get("/", (req, res) => {
 	res.send("This is the webserver index.");
 });
 
+app.get('/all-contacts', (req, res) => {
+	//res.send("Conatcts lst");
+	//res.send(`all contacts: ${ JSON.stringify(contacts) }`);
+	return contacts.load()
+ 	.then(()=> {
+ 		//console.log(contacts);
+ 		// console.log(contacts["list"]);
+ 		res.write(JSON.stringify(contacts.list));
+		
+ 		res.end();
+ 	})
+});
+
+// else if(req.url === '/all-contacts'){
+// 	return contacts.load()
+// 	.then(()=> {
+// 		console.log(contacts);
+// 		// console.log(contacts["list"]);
+
+// 		res.write(JSON.stringify(contacts.list));
+		
+// 		res.end();
+// 	})
+// 	.catch(err => {
+// 		console.log(err);
+// 		res.statusCode = 500;
+// 		res.write("Internal server error");
+// 		res.end();
+// 	});
+// }
+
 app.post("/add-contact", (req, res) => {
 	// console.log("post 2");
 	const obj = req.body;
